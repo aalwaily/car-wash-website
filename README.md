@@ -1,50 +1,45 @@
-# Professional Car Wash Website
+# Glitz Deal Car Wash Website
 
-A modern, responsive website for a car wash business built with HTML, CSS, and JavaScript.
+A professional car wash service website built with Node.js and Express.
 
 ## Features
 
-- Responsive design that works on all devices
-- Modern and professional UI
-- Smooth scrolling navigation
-- Interactive service cards
-- Pricing tables
-- Contact form
-- Animated elements
-- Social media integration
+- Modern, responsive design
+- Contact form with email notifications
+- Service showcase
+- Pricing plans
+- Interactive animations
 
-## Project Structure
+## Tech Stack
 
-- `index.html` - Main HTML file containing the website structure
-- `styles.css` - CSS styles for the website
-- `script.js` - JavaScript for interactive features
+- Node.js
+- Express
+- Nodemailer
+- Bootstrap 5
+- Custom CSS animations
+- AOS (Animate On Scroll)
 
-## Technologies Used
+## Setup
 
-- HTML5
-- CSS3
-- JavaScript
-- Bootstrap 5.3.0
-- Bootstrap Icons
+1. Install dependencies:
+```bash
+npm install
+```
 
-## Getting Started
+2. Create a .env file with the following variables:
+```
+PORT=3000
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+EMAIL_RECIPIENT=recipient-email@gmail.com
+```
 
-1. Clone or download this repository
-2. Open `index.html` in your web browser
-3. Customize the content, images, and styling as needed
+3. Run the development server:
+```bash
+npm run dev
+```
 
-## Customization
+## Production Deployment
 
-- Update the hero background image in `styles.css`
-- Modify colors by changing the CSS variables in `styles.css`
-- Update contact information and business hours in `index.html`
-- Add your own logo and branding
-- Customize pricing and services
-
-## Browser Support
-
-The website is compatible with all modern browsers including:
-- Chrome
-- Firefox
-- Safari
-- Edge
+The website is deployed using Railway.app and can be accessed at [glitzdeal.com](https://glitzdeal.com)

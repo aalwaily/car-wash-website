@@ -22,13 +22,11 @@ app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, message } = req.body;
 
-        console.log('Attempting to create transporter with config:', {
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: process.env.EMAIL_USER
-            }
+        console.log('Email Config:', {
+            service: process.env.EMAIL_SERVICE,
+            user: process.env.EMAIL_USER,
+            recipient: process.env.EMAIL_RECIPIENT,
+            // Don't log the password
         });
 
         // Create transporter (configure with your email service)
@@ -41,6 +39,15 @@ app.post('/api/contact', async (req, res) => {
                 pass: process.env.EMAIL_PASS
             }
         });
+
+        // Verify the connection configuration
+        try {
+            await transporter.verify();
+            console.log('SMTP connection verified successfully');
+        } catch (verifyError) {
+            console.error('SMTP Verification Error:', verifyError);
+            throw new Error('Failed to verify SMTP connection: ' + verifyError.message);
+        }
 
         // Email options
         const mailOptions = {
@@ -55,19 +62,20 @@ app.post('/api/contact', async (req, res) => {
             `
         };
 
-        console.log('Attempting to send email with options:', {
-            from: mailOptions.from,
-            to: mailOptions.to,
-            subject: mailOptions.subject
-        });
+        console.log('Attempting to send email to:', process.env.EMAIL_RECIPIENT);
 
         // Send email
-        await transporter.sendMail(mailOptions);
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully:', info.messageId);
 
         res.status(200).json({ message: 'Message sent successfully!' });
     } catch (error) {
-        console.error('Detailed error:', error);
-        res.status(500).json({ message: 'Sorry, there was an error sending your message. Please try again later.' });
+        console.error('Detailed error in email sending:', error);
+        console.error('Error stack:', error.stack);
+        res.status(500).json({ 
+            message: 'Sorry, there was an error sending your message. Please try again later.',
+            error: error.message 
+        });
     }
 });
 
